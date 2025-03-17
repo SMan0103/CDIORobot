@@ -18,12 +18,10 @@ print("driving")
 
 m = Motor(OUTPUT_A)
 # n = LargeMotor(OUTPUT_B)
-m.on_for_rotations(-100, 3)
+m.on_for_rotations(-100, 25)
 
-
-m.on_for_rotations(100, 3)
+# m.on_for_rotations(100, 3)
 # n.on_for_rotations(-100, 5)
-
 
 
 print("done")
