@@ -8,7 +8,6 @@ from ev3dev2.sensor.lego import TouchSensor
 from ev3dev2.led import Leds
 
 
- 
 input("press to start")
 
 print("driving")
