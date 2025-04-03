@@ -29,19 +29,20 @@ from ev3dev2.led import Leds
 # LargeMotor(address=OUTPUT_A).on(speed=0)
 
 robot = MoveSteering(left_motor_port=OUTPUT_A, right_motor_port=OUTPUT_B)
-# grabber = LargeMotor(address=OUTPUT_C)
+grabber = LargeMotor(address=OUTPUT_C)
 
-# grabber.on(speed=100)
+grabber.on(speed=100)
 hej = ""
 while hej != 'q':
     hej = input("type")
     if(hej == 'q'):
-        robot.off()
+        # robot.off()
         grabber.off()
-    if(hej == 'g'):
-        GrabberHelper = Motor(OUTPUT_D)
-        GrabberHelper.on_for_rotations(speed=-100, rotations=10)
-        GrabberHelper.on_for_rotations(speed=100, rotations=10)
+    # if(hej == 'g'):
+    #     GrabberHelper = Motor(OUTPUT_D)
+    #     GrabberHelper.on_for_rotations(speed=-100, rotations=10)
+    #     GrabberHelper.on_for_rotations(speed=100, rotations=10)
 
     else:
         robot.on(steering=0,speed=int(hej))
+        pass
