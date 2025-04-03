@@ -38,11 +38,13 @@ while hej != 'q':
     if(hej == 'q'):
         # robot.off()
         grabber.off()
-    # if(hej == 'g'):
-    #     GrabberHelper = Motor(OUTPUT_D)
-    #     GrabberHelper.on_for_rotations(speed=-100, rotations=10)
-    #     GrabberHelper.on_for_rotations(speed=100, rotations=10)
+    if(hej == 'g'):
+        GrabberHelper = Motor(OUTPUT_D)
+        GrabberHelper.on_for_rotations(speed=-50, rotations=0.32)
+        sleep(1)
+        GrabberHelper.on_for_rotations(speed=50, rotations=0.32)
 
     else:
-        robot.on(steering=0,speed=int(hej))
+        # robot.on(steering=0,speed=int(hej))
+        robot.on(steering=0,speed=100)
         pass

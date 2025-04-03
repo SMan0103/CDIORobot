@@ -6,7 +6,7 @@ from math import pi
 import socket
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_socket.bind(("192.168.137.139", 12359))
+server_socket.bind(("192.168.137.139", 12358))
 server_socket.listen(1)
 
 print("Waiting for connection...")
@@ -33,13 +33,21 @@ def GrabberHelper():
         """
         The helper grabber for the main grabber if a bold is in the coner.
         """
-        GrabberHelper = Motor(OUTPUT_C)
-        GrabberHelper.on_for_rotations(speed=-100, rotations=10)
-        GrabberHelper.on_for_rotations(speed=100, rotations=10)
+        GrabberHelper = Motor(OUTPUT_D)
+        GrabberHelper.on_for_rotations(speed=-50, rotations=0.32)
+        sleep(1)
+        GrabberHelper.on_for_rotations(speed=50, rotations=0.32)
 
 def drop():
     grabber.on(speed=-100)   
 
+
+def powerdown():
+    grabber.off()
+    robot.off()
+    conn.close()
+    server_socket.close()
+    exit()
 
 
 while(userinputforMetoh != 'q'):
@@ -50,7 +58,12 @@ while(userinputforMetoh != 'q'):
 
     while userinputforMetoh == "":
         userinputforMetoh= conn.recv(1024).decode()
-        splitInput = userinputforMetoh.split("\n")[-2].split("#") 
+        try:
+            splitInput = userinputforMetoh.split("\n")[-2].split("#") 
+        except: 
+            powerdown()
+        
+
         Rotate = int(splitInput[0])
         
         moment = int(splitInput[1])
@@ -58,14 +71,12 @@ while(userinputforMetoh != 'q'):
         #print("Received: " + userinputforMetoh)
         print("moment: ", Rotate)
         print("Rotate: ", moment)
-        if userinputforMetoh == 'q':
-            grabber.off()
-            robot.off()
-            conn.close()
-            server_socket.close()
-            exit()
+            
 
     if (userinputforMetoh == 'd'):
         drop()
 
     robot.on(steering=Rotate,speed=moment) 
+
+
+
