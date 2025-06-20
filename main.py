@@ -19,7 +19,7 @@ def off():
 try:
     ip = os.popen('ip addr | grep "inet 192.168" | awk \'{print $2}\'').read().strip()
     ip = ip[0:ip.find('/')]
-    port = 12355
+    port = 12352
     print("Using IP:", ip)
     print("and port:", port)
 
@@ -32,9 +32,6 @@ try:
     userinputforMetoh = ''
 
     grabber.on(speed=100)
-
-    def drop():
-        grabber.on(speed=-100)
 
     def powerdown():
         off()
@@ -72,8 +69,7 @@ try:
             except (IndexError, ValueError):
                 powerdown()
 
-            if vomit:
-                drop()
+            grabber.on(speed=-100 if vomit else 100)
 
             print("speed: ", speed)
             print("rotate: ", rotate)
@@ -84,6 +80,6 @@ try:
 
             robot.on(steering=rotate,speed=speed)
 
-except KeyboardInterrupt:
+finally:
     server_socket.close()
     off()
